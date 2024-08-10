@@ -20,7 +20,7 @@ function Sidebar({
   handleEventDelete: (data: EventType) => void;
 }) {
   return (
-    <div className='w-[200px] p-3'>
+    <div className='w-full md:w-[200px] p-3'>
       <div className='flex justify-center'>
         <Button
           className='rounded-full w-[140px] py-6 flex justify-center items-center bg-white hover:bg-[#eee]'

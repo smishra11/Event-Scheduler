@@ -91,7 +91,7 @@ function Main() {
 
   return (
     <>
-      <div className='flex'>
+      <div className='block md:flex'>
         <Sidebar
           handleCreateBtn={handleCreateBtn}
           allEvents={allEvents}
