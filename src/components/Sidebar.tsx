@@ -6,6 +6,7 @@ interface EventType {
   title: string;
   description: string;
   date: string;
+  id: string;
 }
 
 function Sidebar({

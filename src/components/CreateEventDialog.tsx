@@ -19,6 +19,7 @@ interface Data {
   title: string;
   description: string;
   date?: string;
+  id?: string;
 }
 
 export default function CreateEventDialog({
@@ -59,7 +60,7 @@ export default function CreateEventDialog({
             </Label>
             <Input
               id='title'
-              placeholder='Pedro Duarte'
+              placeholder='Add event title'
               defaultValue={editClicked ? editableEvent.title : ''}
               onChange={(e) =>
                 setFormData({ ...formdata, title: e.target.value })
@@ -112,7 +113,8 @@ export default function CreateEventDialog({
           <Button
             disabled={
               !Boolean(formdata.title.trim()) ||
-              !Boolean(formdata.title.trim().length)
+              !Boolean(formdata.title.trim().length) ||
+              (editClicked && !Boolean(editableEvent.title))
             }
             onClick={() => saveEvent(formdata)}
           >

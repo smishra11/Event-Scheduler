@@ -1,17 +1,19 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import MyFullCalendar from './MyCalender';
 import EventDetails from './EventDetails';
 
 import moment from 'moment';
 import CreateEventDialog from './CreateEventDialog';
 import Sidebar from './Sidebar';
+import { uid } from 'uid';
 
 interface EventType {
   title: string;
   description: string;
   date?: string;
+  id?: string;
 }
 
 function Main() {
@@ -24,13 +26,14 @@ function Main() {
     title: '',
     description: '',
     date: undefined,
+    id: '',
   });
 
   const [clickedEventDetails, setClickedEventDetails] = useState([
-    { title: 'Test Meeting', date: '2024-08-10', description: '' },
+    { title: 'Test Meeting', date: '2024-08-10', description: '', id: uid(25) },
   ]);
   const [allEvents, setAllEvents] = useState([
-    { title: 'Test Meeting', date: '2024-08-10', description: '' },
+    { title: 'Test Meeting', date: '2024-08-10', description: '', id: uid(25) },
   ]);
 
   const handleDateClick = (arg: any) => {
@@ -44,8 +47,6 @@ function Main() {
       (data: EventType) => data.title === clickInfo.event.title
     );
     setClickedEventDetails(filteredEvents);
-    console.log(filteredEvents);
-
     setShowEventDetails(true);
   };
 
@@ -53,16 +54,23 @@ function Main() {
     if (editClicked) {
       setAllEvents(
         allEvents.map((event) =>
-          event.title === editableEvent.title &&
-          event.description === editableEvent.description
-            ? { ...formdata, date: moment(clickedDate).format('YYYY-MM-DD') }
+          event.id === editableEvent.id
+            ? {
+                ...formdata,
+                date: moment(clickedDate).format('YYYY-MM-DD'),
+                id: uid(25),
+              }
             : event
         )
       );
     } else {
       setAllEvents([
         ...allEvents,
-        { ...formdata, date: moment(clickedDate).format('YYYY-MM-DD') },
+        {
+          ...formdata,
+          date: moment(clickedDate).format('YYYY-MM-DD'),
+          id: uid(25),
+        },
       ]);
     }
     setCreateEventDialogOpen(false);
@@ -80,12 +88,7 @@ function Main() {
     setEditableEvent(data);
   };
   const handleEventDelete = (data: EventType) => {
-    const filtered = allEvents.filter(
-      (event) =>
-        event.title !== data.title &&
-        event.description !== data.description &&
-        event.date !== data.date
-    );
+    const filtered = allEvents.filter((event) => event.id !== data.id);
     setAllEvents(filtered);
   };
 
