@@ -40,18 +40,20 @@ export default function CreateEventDialog({
   editableEvent: Data;
 }) {
   const [formdata, setFormData] = useState<Data>({
-    title: '',
-    description: '',
+    title: editClicked ? editableEvent.title : '',
+    description: editClicked ? editableEvent.description : '',
   });
 
   useEffect(() => {
     if (editClicked) {
       setFormData({
-        title: editableEvent.title || '',
-        description: editableEvent.description || '',
+        title: editableEvent.title,
+        description: editableEvent.description,
         date: editableEvent.date,
         id: editableEvent.id,
       });
+    } else {
+      setFormData({ title: '', description: '' });
     }
   }, [editClicked, editableEvent]);
 
