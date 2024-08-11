@@ -29,12 +29,23 @@ function Main() {
     id: '',
   });
 
-  const [clickedEventDetails, setClickedEventDetails] = useState([
-    { title: 'Test Meeting', date: '2024-08-10', description: '', id: uid(25) },
-  ]);
-  const [allEvents, setAllEvents] = useState([
-    { title: 'Test Meeting', date: '2024-08-10', description: '', id: uid(25) },
-  ]);
+  const [clickedEventDetails, setClickedEventDetails] = useState<EventType[]>(
+    []
+  );
+  const [allEvents, setAllEvents] = useState<EventType[]>([]);
+
+  useEffect(() => {
+    const storedEvents = localStorage.getItem('events');
+    if (storedEvents) {
+      setAllEvents(JSON.parse(storedEvents));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (allEvents.length > 0) {
+      localStorage.setItem('events', JSON.stringify(allEvents));
+    }
+  }, [allEvents]);
 
   const handleDateClick = (arg: any) => {
     setCreateEventDialogOpen(true);

@@ -2,11 +2,11 @@ import React from 'react';
 import { Button } from './ui/button';
 import { Pencil, Plus, Trash2 } from 'lucide-react';
 
-interface EventType {
+interface AllEventType {
   title: string;
   description: string;
-  date: string;
-  id: string;
+  date?: string;
+  id?: string;
 }
 
 function Sidebar({
@@ -16,9 +16,9 @@ function Sidebar({
   handleEventDelete,
 }: {
   handleCreateBtn: () => void;
-  allEvents: EventType[];
-  handleEdit: (data: EventType) => void;
-  handleEventDelete: (data: EventType) => void;
+  allEvents: AllEventType[];
+  handleEdit: (data: AllEventType) => void;
+  handleEventDelete: (data: AllEventType) => void;
 }) {
   return (
     <div className='w-full md:w-[200px] p-3'>
@@ -27,7 +27,7 @@ function Sidebar({
           className='rounded-full w-[140px] py-6 flex justify-center items-center bg-white hover:bg-[#eee]'
           style={{
             boxShadow:
-              '3px 3px 5px rgba(0, 0, 0, 0.2),-3px 3px 5px rgba(0, 0, 0, 0.2);',
+              '3px 3px 5px rgba(0, 0, 0, 0.2),-3px 3px 5px rgba(0, 0, 0, 0.2)',
           }}
           onClick={handleCreateBtn}
         >

@@ -5,8 +5,9 @@ import moment from 'moment';
 
 interface Data {
   title: string;
-  description: string;
-  date: string;
+  description?: string;
+  date?: string;
+  id?: string;
 }
 
 export default function EventDetails({

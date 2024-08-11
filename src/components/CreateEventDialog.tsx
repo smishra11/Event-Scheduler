@@ -39,7 +39,21 @@ export default function CreateEventDialog({
   setEditClicked: (val: boolean) => void;
   editableEvent: Data;
 }) {
-  const [formdata, setFormData] = useState({ title: '', description: '' });
+  const [formdata, setFormData] = useState<Data>({
+    title: '',
+    description: '',
+  });
+
+  useEffect(() => {
+    if (editClicked) {
+      setFormData({
+        title: editableEvent.title || '',
+        description: editableEvent.description || '',
+        date: editableEvent.date,
+        id: editableEvent.id,
+      });
+    }
+  }, [editClicked, editableEvent]);
 
   return (
     <Dialog
@@ -61,7 +75,7 @@ export default function CreateEventDialog({
             <Input
               id='title'
               placeholder='Add event title'
-              defaultValue={editClicked ? editableEvent.title : ''}
+              value={formdata.title}
               onChange={(e) =>
                 setFormData({ ...formdata, title: e.target.value })
               }
@@ -74,7 +88,7 @@ export default function CreateEventDialog({
             <Textarea
               id='description'
               placeholder='Type your description here.'
-              defaultValue={editClicked ? editableEvent.description : ''}
+              value={formdata.description}
               onChange={(e) =>
                 setFormData({ ...formdata, description: e.target.value })
               }
@@ -111,11 +125,7 @@ export default function CreateEventDialog({
         </div>
         <DialogFooter>
           <Button
-            disabled={
-              !Boolean(formdata.title.trim()) ||
-              !Boolean(formdata.title.trim().length) ||
-              (editClicked && !Boolean(editableEvent.title))
-            }
+            disabled={!formdata.title.trim()}
             onClick={() => saveEvent(formdata)}
           >
             Save changes

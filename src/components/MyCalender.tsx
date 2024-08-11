@@ -5,8 +5,8 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 
 interface Event {
-  title: string;
-  date: string;
+  title?: string;
+  date?: string;
 }
 
 const MyFullCalendar = ({
